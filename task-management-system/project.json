@@ -1,0 +1,29 @@
+{
+  "name": "task-management-system",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "includedScripts": [],
+  "sourceRoot": "src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "buildTarget": "task-management-system:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "task-management-system:build:development"
+        },
+        "production": {
+          "buildTarget": "task-management-system:build:production"
+        }
+      }
+    }
+  }
+}
