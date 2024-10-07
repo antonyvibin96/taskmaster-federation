@@ -15,5 +15,5 @@ module.exports = [
         "**/*.jsx"
     ],
     // Override or add rules here
-    rules: {}
+   // rules: {}
 },];
