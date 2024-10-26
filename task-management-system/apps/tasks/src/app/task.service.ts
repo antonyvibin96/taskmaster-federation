@@ -34,4 +34,8 @@ export class TaskService {
     task.assignee = assigneeId;
     return this.taskRepository.save(task);
   }
+
+  async getAllTasksByUserId(userId: string) {
+    return [];
+  }
 }
