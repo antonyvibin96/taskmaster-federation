@@ -1,5 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from './user.entity';
 
 @ObjectType()
 @Entity()
@@ -27,4 +28,7 @@ export class Task {
   @Field({nullable: true})
   @Column({nullable: true})
   assignee: string;
+
+  @Field(() => User)
+  user?: User;
 }
