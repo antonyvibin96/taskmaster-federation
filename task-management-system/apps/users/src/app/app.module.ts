@@ -1,16 +1,15 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig, ApolloFederationDriver } from '@nestjs/apollo';
+import { ApolloDriver, ApolloDriverConfig, ApolloFederationDriver, ApolloFederationDriverConfig } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
 import { UserResolver } from './user.resolver';
 import { User } from './user.entity';
 import { UserService } from './user.service';
-
+import { ApolloServerPluginInlineTrace } from '@apollo/server/plugin/inlineTrace';
 
 @Module({
   imports: [
-    GraphQLModule.forRoot<ApolloDriverConfig>({
+    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
       autoSchemaFile: true,
     }),
@@ -19,14 +18,13 @@ import { UserService } from './user.service';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: '',
+      password: 'postgres',
       database: 'taskmaster',
       entities: [User],
       synchronize: true,
     }),
     TypeOrmModule.forFeature([User]),
   ],
-  // controllers: [AppController],
   providers: [UserService, UserResolver],
 })
 export class AppModule {}
