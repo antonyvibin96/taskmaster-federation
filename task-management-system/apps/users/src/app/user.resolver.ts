@@ -1,4 +1,4 @@
-import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
+import { Resolver, Query, Args, Mutation, ResolveReference } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { User } from './user.model';
 import { UpdateUserInput } from './types/update.user.input';
@@ -26,5 +26,10 @@ export class UserResolver {
   @Mutation(() => User)
   updateUser(@Args('id') id: string, @Args('input') input: UpdateUserInput) {
     return this.userService.updateUser(id, input);
+  }
+
+  @ResolveReference()
+  async resolveReference(reference: { __typename: string; userId: string }): Promise<User> {
+    return await this.userService.getUserById(reference.userId);
   }
 }

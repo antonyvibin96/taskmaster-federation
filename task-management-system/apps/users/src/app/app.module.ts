@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ApolloDriver, ApolloDriverConfig, ApolloFederationDriver } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { UserResolver } from './user.resolver';
@@ -11,7 +11,7 @@ import { UserService } from './user.service';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
+      driver: ApolloFederationDriver,
       autoSchemaFile: true,
     }),
     TypeOrmModule.forRoot({
