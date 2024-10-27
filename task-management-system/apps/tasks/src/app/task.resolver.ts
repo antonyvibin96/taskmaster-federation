@@ -1,15 +1,13 @@
 import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
 import { TaskService } from './task.service';
 import { Task } from './task.entity';
-import { User } from './user.entity';
-// import { User } from '../users/user.entity'; // Federated User type
 
 
 @Resolver(() => Task)
 export class TaskResolver {
   constructor(private readonly taskService: TaskService) {}
 
-  @Query(() => [Task], { name: 'tasks' })
+  @Query(() => [Task])
   getTasks() {
     return this.taskService.findAll();
   }
@@ -24,9 +22,10 @@ export class TaskResolver {
     @Args('title') title: string,
     @Args('description') description: string,
     @Args('dueDate', { type: () => String }) dueDate: Date,
+    @Args('status') status: string,
     @Args('assigneeId', { type: () => String, nullable: true }) assignee?: string,
   ) {
-    return this.taskService.create({ title, description, dueDate, assignee });
+    return this.taskService.create({ title, description, dueDate, assignee, status });
   }
 
   @Mutation(() => Task)
@@ -45,10 +44,5 @@ export class TaskResolver {
     @Args('assigneeId') assigneeId: string
   ) {
     return this.taskService.assignUser(taskId, assigneeId);
-  }
-
-  @ResolveField(() => User)
-  user(@Parent() task: Task): any {
-    return { __typename: 'User', userId: task.assignee };
   }
 }
