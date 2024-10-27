@@ -5,7 +5,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Task } from './task.entity';
 import { TaskService } from './task.service';
 import { TaskResolver } from './task.resolver';
-import { User } from './user.entity';
 
 
 @Module({
@@ -13,9 +12,6 @@ import { User } from './user.entity';
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
       autoSchemaFile: true,
-      buildSchemaOptions: {
-        orphanedTypes: [User],
-      },
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',

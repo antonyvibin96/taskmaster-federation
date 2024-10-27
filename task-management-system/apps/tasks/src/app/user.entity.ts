@@ -22,6 +22,6 @@ export class User {
   @Column()
   role: string;
 
-    @Field(() => [Task])
-    tasks?: Task[]
+    // @Field(() => [Task])
+    // tasks?: Task[]
 }
